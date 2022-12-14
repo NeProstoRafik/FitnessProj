@@ -15,8 +15,6 @@ namespace Fitness.CMD
             Console.WriteLine("Введите свое имя");
             var name=Console.ReadLine();
 
-            
-
             var userController = new UserController(name);
             if (userController.IsNewUser)
             {

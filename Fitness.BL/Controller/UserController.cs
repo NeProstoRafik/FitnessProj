@@ -34,18 +34,16 @@ namespace Fitness.BL.Controller
                 throw new ArgumentNullException("Имя не может быть пустым", nameof(userName));
             }
             Users = GetUsersData();
-
             CurrentUser = Users.SingleOrDefault(u => u.Name == userName);
 
-            // var gender = new Gender(genderName);
-            //User=new User(userName,gender,birthDate,userWeight,userHeight);
             if (CurrentUser==null)
             {
                 CurrentUser = new User(userName);
                 Users.Add(CurrentUser);
                 IsNewUser = true;
                 Save(); 
-            }
+            }          
+            
         }
         /// <summary>
         /// Получить сохраннеый список пользователей.
@@ -53,18 +51,19 @@ namespace Fitness.BL.Controller
         /// <returns></returns>
         private List<User> GetUsersData() 
         {
+           
             var formatter = new BinaryFormatter();
-            using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
-            {
-                if (formatter.Deserialize(fs) is List<User> users)
+             using (var fs = new FileStream("users.dat", FileMode.Open))
+            { // спросить у Александра если файл пустой как его можно прочитать.ошибка - Попытка десериализации пустого потока
+                if (fs.Length>0 && formatter.Deserialize(fs) is List<User> users)
                 {
-                 return users;
+                    return users;
                 }
                 else
                 {
-                    return new List<User>();
-                }
-            }           
+                return new List<User>();
+             }
+           }           
         }
         /// <summary>
         /// Сохранить данные пользователя.
