@@ -1,4 +1,5 @@
 ﻿using Fitness.BL.Controller;
+using Fitness.BL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Fitness.CMD
             var name=Console.ReadLine();
 
             var userController = new UserController(name);
+            var eatingController = new EatingController(userController.CurrentUser);
             if (userController.IsNewUser)
             {
                 Console.WriteLine("Введите пол");
@@ -34,7 +36,28 @@ namespace Fitness.CMD
 
             }
             Console.WriteLine(userController);
+            Console.WriteLine("Что вы хотите сделать? нажмите Е-ввести прием пищи.");
+            var key=Console.ReadKey();
+            if (key.Key==ConsoleKey.E)
+            {
+                var foods=EatingEnter();
+                eatingController.Add(foods.Item1, foods.Item2);
+            }
             Console.ReadLine();
+        }
+
+        private static (Food, double) EatingEnter()
+        {
+            Console.WriteLine("Введите имя продукта");
+          var food=  Console.ReadLine();
+
+            var calories = ParseDouble("Калорийность");
+            var proteins = ParseDouble("белки");
+            var fats = ParseDouble("жиры");
+            var carbs = ParseDouble("углеводы");
+            var weight = ParseDouble("вес порции");
+            var product = new Food(food,proteins,fats,carbs,calories);
+            return (product, weight);
         }
 
         private static DateTime ParseDateTime()
@@ -49,7 +72,7 @@ namespace Fitness.CMD
                 }
                 else
                 {
-                    Console.WriteLine("не праильнвй формат даты");
+                    Console.WriteLine("не праильный формат даты");
                 }
             }
 
@@ -67,7 +90,7 @@ namespace Fitness.CMD
                 }
                 else
                 {
-                    Console.WriteLine($"не праильнвй {name}");
+                    Console.WriteLine($"не праильный формат поля {name}");
                 }
             }
         }

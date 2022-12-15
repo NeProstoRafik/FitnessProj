@@ -12,7 +12,7 @@ namespace Fitness.BL.Controller
     /// <summary>
     /// Контроллер пользователя.
     /// </summary>
-    public class UserController
+    public class UserController : ControllerBase
     {
         /// <summary>
         /// Пользователь приложения.
@@ -51,19 +51,8 @@ namespace Fitness.BL.Controller
         /// <returns></returns>
         private List<User> GetUsersData() 
         {
+           return base.Load<List<User>>("users.dat") ?? new List<User>();
            
-            var formatter = new BinaryFormatter();
-             using (var fs = new FileStream("users.dat", FileMode.Open))
-            { // спросить у Александра если файл пустой как его можно прочитать.ошибка - Попытка десериализации пустого потока
-                if (fs.Length>0 && formatter.Deserialize(fs) is List<User> users)
-                {
-                    return users;
-                }
-                else
-                {
-                return new List<User>();
-             }
-           }           
         }
         /// <summary>
         /// Сохранить данные пользователя.
@@ -80,11 +69,7 @@ namespace Fitness.BL.Controller
         }
         public void Save()
         {
-            var formatter = new BinaryFormatter();
-            using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, Users);
-            }
+            base.Save("users.dat", Users);
         }
         /// <summary>
         /// Получить данные пользователя.
