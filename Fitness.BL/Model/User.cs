@@ -11,11 +11,12 @@ namespace Fitness.BL.Model
     [Serializable]
     public class User
     {
+        public int Id { get; set; }
         #region Свойства
         /// <summary>
         /// Имя.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
         /// <summary>
         /// Пол.
         /// </summary>
@@ -74,6 +75,10 @@ namespace Fitness.BL.Model
             BirthDate = birthDate;
             Weigth = weight;
             Height=height;
+        }
+        public User()
+        {
+
         }
         public User(string name)
         {

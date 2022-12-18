@@ -9,27 +9,28 @@ namespace Fitness.BL.Model
     [Serializable]
     public class Food
     {
+        public int Id { get; set; }
         /// <summary>
         /// название продукта.
         /// </summary>
-        public string Name { get;}
+        public string Name { get; set; }
 
         /// <summary>
         /// белки.
         /// </summary>
-        public double Proteins { get;}
+        public double Proteins { get; set; }
         /// <summary>
         /// жиры.
         /// </summary>
-        public double Fats { get;}
+        public double Fats { get; set; }
         /// <summary>
         /// углеводы.
         /// </summary>
-        public double Carbogydrates { get;}
+        public double Carbogydrates { get; set; }
         /// <summary>
         /// калории за 100 грамм продукта.
         /// </summary>
-        public double Calories { get;}
+        public double Calories { get; set; }
 
         //public double CaloriesOneGramm { get { return Calories / 100; } }
         //public double ProteinssOneGramm { get { return Proteins / 100; } }
@@ -43,6 +44,10 @@ namespace Fitness.BL.Model
             Fats = fats/100;
             Carbogydrates = carbogydrates/100;
             Calories = calories/100;
+        }
+        public Food()
+        {
+
         }
         public Food(string name) : this(name,0, 0, 0, 0)
         {

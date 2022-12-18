@@ -40,7 +40,7 @@ namespace Fitness.CMD
                 var height = ParseDouble("рост");
 
 
-                userController.SetUserData(gender, birthDay, weight, height);
+                userController.SetNewUserData(gender, birthDay, weight, height);
 
             }
             Console.WriteLine(userController);
@@ -61,7 +61,7 @@ namespace Fitness.CMD
                         var exe =EnterExerxise();
                        
                         exerciseController.Add(exe.activity, exe.begin, exe.end);
-                        foreach (var item in exerciseController.ExerciseList)
+                        foreach (var item in exerciseController.Exercises)
                         {
                             Console.WriteLine($"{item.Activity} c {item.Star.ToShortTimeString()} до {item.Finis.ToShortTimeString()}");
                         }
